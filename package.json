@@ -1,0 +1,45 @@
+{
+  "name": "storacleagent",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^5.0.6"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@langchain/core": "^1.1.39",
+    "@langchain/google-genai": "^2.1.26",
+    "@langchain/langgraph": "^1.2.8",
+    "@langchain/openai": "^1.4.4",
+    "@langchain/openrouter": "^0.2.2",
+    "@ngrok/ngrok": "^1.7.0",
+    "@openrouter/sdk": "^0.12.3",
+    "@supabase/ssr": "^0.9.0",
+    "@supabase/supabase-js": "^2.98.0",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@zerodev/ecdsa-validator": "^5.4.9",
+    "@zerodev/permissions": "^5.6.3",
+    "@zerodev/remote-signer": "^5.3.3",
+    "@zerodev/sdk": "^5.5.10",
+    "agentmail": "^0.4.3",
+    "body-parser": "^2.2.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "ddg-search": "^2026.2.16",
+    "dotenv": "^17.3.1",
+    "ethers": "^6.16.0",
+    "express": "^5.2.1",
+    "express-async-handler": "^1.2.0",
+    "langchain": "^1.3.1",
+    "node-fred": "^3.0.0",
+    "prettier": "^3.8.1",
+    "unpdf": "^1.6.0",
+    "viem": "^2.44.4",
+    "zod": "^3.25.76"
+  }
+}
