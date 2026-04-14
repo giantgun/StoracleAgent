@@ -185,6 +185,40 @@ export async function checkAuthentication(
   }
 }
 
+export async function checkAuthenticationForEvents(
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<any> {
+  const token = req.cookies['access-token'] || req.query.access_token;
+
+
+  if (!token) {
+    return res.status(401).json({ error: "Authentication required" });
+  }
+
+  const supabase = createAuthClient(req, res);
+
+  try {
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser(token);
+
+    if (error || !user) {
+      res.clearCookie("access_token", { path: "/", httpOnly: true });
+      return res.status(401).json({ error: "Session expired. Please sign in again." });
+    }
+
+    req.user = user;
+    req.token = token;
+    next();
+  } catch (err) {
+    res.clearCookie("access_token", { path: "/", httpOnly: true });
+    return res.status(401).json({ error: "Session expired. Please sign in again." });
+  }
+}
+
 export async function updateOrg(
   req: any,
   res: Response,
