@@ -9,6 +9,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const envirionment = process.env.NODE_ENV || "development";
+
 const supabaseUrl = process.env.SUPABASE_URL || "";
 const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY || "";
 
@@ -22,13 +24,23 @@ export const createAuthClient = (req: Request, res: Response) => {
       set(name: string, value: string, options: CookieOptions) {
         res.appendHeader(
           "Set-Cookie",
-          serializeCookieHeader(name, value, options),
+          serializeCookieHeader(name, value, {
+            ...options,
+            sameSite: envirionment === "production" ? "none" : "lax",
+            secure: envirionment === "production",
+            path: "/",
+          }),
         );
       },
       remove(name: string, options: CookieOptions) {
         res.appendHeader(
           "Set-Cookie",
-          serializeCookieHeader(name, "", options),
+          serializeCookieHeader(name, "", {
+            ...options,
+            sameSite: envirionment === "production" ? "none" : "lax",
+            secure: envirionment === "production",
+            path: "/",
+          }),
         );
       },
     },

@@ -18,6 +18,7 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
+app.set("trust proxy", 1);
 
 const corsOptions = {
   origin: process.env.FRONTEND_URL || "https://storacle-frontend.vercel.app",
