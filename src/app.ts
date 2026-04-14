@@ -20,7 +20,7 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.FRONTEND_URL || "https://storacle-frontend.vercel.app",
   optionsSuccessStatus: 200,
   credentials: true,
 };
