@@ -159,3 +159,7 @@ export async function handleMailWebhook(req: Request, res: Response): Promise<an
     console.error("handleMailWebhook error:", err);
   }
 }
+
+export async function keepAliveWebhook(req: Request, res: Response): Promise<any> {
+  res.status(200).json({ received: true });
+}
