@@ -16,6 +16,20 @@ const mailClient = new AgentMailClient({
   apiKey: process.env.AGENT_MAIL_API_KEY,
 });
 
+async function parsePdf(attachmentId: string) {
+  // Invoke the Edge Function via the Supabase client
+  const { data, error } = await supabase.functions.invoke('pdf-parse', {
+    body: { attachmentId: attachmentId },
+  });
+
+  if (error) {
+    console.error("Edge Function Error:", error);
+    throw new Error(`Failed to process invoice via Edge Function: ${error.message}`);
+  }
+
+  return data.extractedText;
+}
+
 export async function readInvoiceService(attachmentId: string): Promise<{
   product_name: string | null;
   quantity: number | null;
@@ -37,12 +51,7 @@ export async function readInvoiceService(attachmentId: string): Promise<{
 
   // --- NEW: Convert Base64 PDF to Text ---
   if (data.content_type === "application/pdf") {
-    // Decode base64 to Uint8Array for unpdf
-    const pdfBuffer = Uint8Array.from(atob(base64Content), c => c.charCodeAt(0));
-
-    // Load and extract text
-    const pdf = await getDocumentProxy(pdfBuffer);
-    const { text } = await extractText(pdf);
+    const text = await parsePdf(attachmentId);
     extractedText = text;
   } else {
     extractedText = Buffer.from(base64Content, 'base64').toString('utf-8');
