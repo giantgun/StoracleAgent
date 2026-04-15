@@ -88,9 +88,11 @@ Rules:
 
 constraints:
 - make sure to call send_invoice request if the item is predicted to reach critical levels within the supplier lead time + 2 days, and the minimum bulk quantity can be ordered to replenish stock.
-- inventory is critical if it's predicted to reach the critical order level within the supplier lead time + 2 days even if the inventory quantity is not less than critical order level yet. This is to account for supplier lead times and ensure we have stock before hitting critical levels.`
+- inventory is critical if it's predicted to reach the critical order level within the supplier lead time + 2 days even if the inventory quantity is not less than critical order level yet. This is to account for supplier lead times and ensure we have stock before hitting critical levels.
+
+IMPORTANT: NEVER RETURN A RESULT UNTIL YOU HAVE CALLED RELEVANT TOOLS AND MADE A DECISION BASED ON THE ABOVE RULES. ALWAYS CALL THE TOOLS IN THE CORRECT ORDER AND FOLLOW THE DECISION LOGIC PRECISELY. IF YOU ARE UNSURE, CALL THE TOOLS TO GET THE INFORMATION NEEDED TO MAKE AN INFORMED DECISION.`
         ),
-        new HumanMessage("Check the inventory item now and follow the rules."),
+        new HumanMessage("call tools based on the rules."),
       ]
     });
 

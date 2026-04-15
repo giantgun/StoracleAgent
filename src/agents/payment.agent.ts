@@ -109,9 +109,11 @@ Constraints:
 - When calling pay_supplier, always include quantity.
 - If you pay call send_invoice_paid to notify the supplier that payment has been made, and include the quantity.
 - If you pay make sure include the complete tx_hash in the notification and email to supplier, not just a truncated version.
-- Consider In transit stock orders on inventory item before ever paying`
+- Consider In transit stock orders on inventory item before ever paying
+
+IMPORTANT: NEVER RETURN A RESULT UNTIL YOU HAVE CALLED RELEVANT TOOLS AND MADE A DECISION BASED ON THE ABOVE RULES. ALWAYS CALL THE TOOLS IN THE CORRECT ORDER AND FOLLOW THE DECISION LOGIC PRECISELY. IF YOU ARE UNSURE, CALL THE TOOLS TO GET THE INFORMATION NEEDED TO MAKE AN INFORMED DECISION.`
         ),
-        new HumanMessage("Process this invoice."),
+        new HumanMessage("call tools based on the rules."),
       ]
     });
 
