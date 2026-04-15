@@ -52,7 +52,7 @@ export async function readInvoiceService(attachmentId: string): Promise<{
   // --- NEW: Convert Base64 PDF to Text ---
   if (data.content_type === "application/pdf") {
     const text = await parsePdf(attachmentId);
-    extractedText = text;
+    extractedText = JSON.parse(text);
   } else {
     extractedText = Buffer.from(base64Content, 'base64').toString('utf-8');
   }
