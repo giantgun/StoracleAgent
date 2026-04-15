@@ -48,9 +48,17 @@ export async function readInvoiceService(attachmentId: string): Promise<{
     extractedText = Buffer.from(base64Content, 'base64').toString('utf-8');
   }
 
-  const model = new ChatOpenRouter({
-    model: "openrouter/elephant-alpha",
+  // const model = new ChatOpenRouter({
+  //   model: "openrouter/elephant-alpha",
+  //   apiKey: process.env.OPENROUTER_API_KEY,
+  // });
+
+  const model = new ChatOpenAI({
+    modelName: "openrouter/elephant-alpha",
     apiKey: process.env.OPENROUTER_API_KEY,
+    configuration: {
+      baseURL: "https://openrouter.ai/api/v1",
+    },
   });
 
   const result = await model.invoke([
