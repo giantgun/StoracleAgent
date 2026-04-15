@@ -57,7 +57,7 @@ export async function readInvoiceService(attachmentId: string): Promise<{
     extractedText = Buffer.from(base64Content, 'base64').toString('utf-8');
   }
 
-  console.log("Extracted text from invoice:", extractedText);
+  console.log("Extracted text from invoice:", JSON.stringify(extractedText));
 
   // const model = new ChatOpenRouter({
   //   model: "openrouter/elephant-alpha",
