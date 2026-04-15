@@ -57,7 +57,7 @@ export async function readInvoiceService(attachmentId: string): Promise<{
     extractedText = Buffer.from(base64Content, 'base64').toString('utf-8');
   }
 
-  console.log("Extracted text from invoice:", JSON.stringify(extractedText));
+  console.log("Extracted text from invoice:", JSON.stringify(extractedText, null, 2));
 
   // const model = new ChatOpenRouter({
   //   model: "openrouter/elephant-alpha",
@@ -81,7 +81,7 @@ export async function readInvoiceService(attachmentId: string): Promise<{
       If a field is missing, return null. Do not include conversational text or markdown blocks.`
     ),
     new HumanMessage({
-      content: `Here is the raw text extracted from the invoice: \n\n ${extractedText}`,
+      content: `Here is the raw text extracted from the invoice: \n\n ${JSON.stringify(extractedText, null, 2)}`,
     }),
   ]);
 
