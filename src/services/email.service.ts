@@ -133,7 +133,7 @@ export async function sendInvoiceRequestService(
   // });
 
   const model = new ChatOpenAI({
-    modelName: "nvidia/nemotron-3-super-120b-a12b:free",
+    modelName: "openrouter/elephant-alpha",
     apiKey: process.env.OPENROUTER_API_KEY,
     configuration: {
       baseURL: "https://openrouter.ai/api/v1",
@@ -213,7 +213,7 @@ export async function sendInvoicePaidService(
   // });
 
   const model = new ChatOpenAI({
-    modelName: "nvidia/nemotron-3-super-120b-a12b:free",
+    modelName: "openrouter/elephant-alpha",
     apiKey: process.env.OPENROUTER_API_KEY,
     configuration: {
       baseURL: "https://openrouter.ai/api/v1",
