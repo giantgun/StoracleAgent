@@ -80,9 +80,7 @@ export async function readInvoiceService(attachmentId: string): Promise<{
       { "product_name": string, "quantity": number, "unit_price": number, "total_amount": number, "supplier_address": string, "due_date": string | null }. 
       If a field is missing, return null. Do not include conversational text or markdown blocks.`
     ),
-    new HumanMessage({
-      content: `Here is the raw text extracted from the invoice: \n\n ${JSON.stringify(extractedText, null, 2)}`,
-    }),
+    new HumanMessage(`Here is the raw text extracted from the invoice: \n\n ${JSON.stringify(extractedText, null, 2)}`),
   ]);
 
   console.log("Raw model result content:", result.content);
