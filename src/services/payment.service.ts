@@ -161,38 +161,41 @@ async function sendUSDT(
     paymaster: paymasterClient,
   });
 
-  const contract = getContract({
-    address: usdtTokenAddress as `0x${string}`,
-    abi: erc20Abi,
-    client: {
-      public: publicClient,
-      wallet: kernelClient,
-    }
-  })
+  // const contract = getContract({
+  //   address: usdtTokenAddress as `0x${string}`,
+  //   abi: erc20Abi,
+  //   client: {
+  //     public: publicClient,
+  //     wallet: kernelClient,
+  //   }
+  // })
 
-  const hash = await contract.write.transfer([supplierAddress as `0x${string}`, parseUnits(amount.toString(), 6)]);
+  // const hash = await contract.write.transfer([supplierAddress as `0x${string}`, parseUnits(amount.toString(), 6)]);
 
   // The SDK now handles: encoding, gas estimation, paymaster signing, and submission
-  // const userOpHash = await kernelClient.sendUserOperation({
-  //   callData: await permissionAccount.encodeCalls([{
-  //     to: usdtTokenAddress as `0x${string}`,
-  //     value: BigInt(0),
-  //     data: encodeFunctionData({
-  //       abi: erc20Abi,
-  //       functionName: "transfer",
-  //       args: [supplierAddress, parseUnits(amount.toString(), 6)],
-  //     }),
-  //   }]),
-  //   preVerificationGas: BigInt(50000),
-  //   verificationGasLimit: BigInt(100000),
-  //   callGasLimit: BigInt(100000),
-  // });
+  const userOpHash = await kernelClient.sendUserOperation({
+    callData: await permissionAccount.encodeCalls([{
+      to: usdtTokenAddress as `0x${string}`,
+      value: BigInt(0),
+      data: encodeFunctionData({
+        abi: erc20Abi,
+        functionName: "transfer",
+        args: [supplierAddress, parseUnits(amount.toString(), 6)],
+      }),
+    }]),
+  });
 
-  // const receipt = await kernelClient.waitForUserOperationReceipt({
-  //   hash: userOpHash,
-  // });
+  const receipt = await kernelClient.waitForUserOperationReceipt({
+    hash: userOpHash,
+  });
 
-  // await refreshAndBroadcastBalance(organizationId);
-  // return receipt.receipt.transactionHash;
-  return hash;
+  try{
+    await refreshAndBroadcastBalance(organizationId);
+  }
+  catch(err){
+    console.error("Failed to refresh balance:", err);
+  }
+
+  return receipt.receipt.transactionHash;
+  // return hash;
 }
