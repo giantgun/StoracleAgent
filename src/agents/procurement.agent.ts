@@ -60,8 +60,10 @@ export async function handleProcurementTask(task: AgentTask) {
       },
     });
 
+    const modelWithTools = model.bindTools(tools);
+
     const agent = createAgent({
-      model,
+      model: modelWithTools,
       tools
     });
 
@@ -92,7 +94,7 @@ constraints:
 
 IMPORTANT: NEVER RETURN A RESULT UNTIL YOU HAVE CALLED RELEVANT TOOLS AND MADE A DECISION BASED ON THE ABOVE RULES. ALWAYS CALL THE TOOLS IN THE CORRECT ORDER AND FOLLOW THE DECISION LOGIC PRECISELY. IF YOU ARE UNSURE, CALL THE TOOLS TO GET THE INFORMATION NEEDED TO MAKE AN INFORMED DECISION.`
         ),
-        new HumanMessage("call tools based on the rules."),
+        new HumanMessage("call tools based on the rules, start by calling read_inventory_item to get the current state of the inventory item, then follow the rules to decide whether to call predict_depletion and send_invoice_request. Always call create_notification if you take any action, and include the reasoning in the notification. If no action is needed, just respond with the appropriate message without calling any tools."),
       ]
     });
 

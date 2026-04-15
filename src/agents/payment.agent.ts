@@ -66,9 +66,10 @@ export async function handlePaymentTask(task: AgentTask) {
       },
     });
 
+    const modelWithTools = model.bindTools(tools);
 
     const agent = createAgent({
-      model,
+      model: modelWithTools,
       tools
     });
 
@@ -113,7 +114,7 @@ Constraints:
 
 IMPORTANT: NEVER RETURN A RESULT UNTIL YOU HAVE CALLED RELEVANT TOOLS AND MADE A DECISION BASED ON THE ABOVE RULES. ALWAYS CALL THE TOOLS IN THE CORRECT ORDER AND FOLLOW THE DECISION LOGIC PRECISELY. IF YOU ARE UNSURE, CALL THE TOOLS TO GET THE INFORMATION NEEDED TO MAKE AN INFORMED DECISION.`
         ),
-        new HumanMessage("call tools based on the rules."),
+        new HumanMessage("call tools based on the rules, start by calling read_invoice to parse the invoice and extract necessary data, then follow the rules to decide whether to call inventory verification tools and pay_supplier or schedule for later. Always call create_notification after making a decision, and include the reasoning in the notification. If no action is needed, just respond with the appropriate message without calling any tools."),
       ]
     });
 
