@@ -49,7 +49,7 @@ export async function readInvoiceService(attachmentId: string): Promise<{
   }
 
   const model = new ChatOpenRouter({
-    model: "openrouter/free",
+    model: "openrouter/elephant-alpha",
     apiKey: process.env.OPENROUTER_API_KEY,
   });
 
