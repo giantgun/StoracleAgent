@@ -84,7 +84,11 @@ Rules:
    - If days_until_critical <= (supplier_lead_time_days + 2) and minimum_bulk_quantity > (capacity - quantity): respond with "Inventory Critical but minimum order quantity not met" and call create_notification saying that inventory is critical but minimum order quantity not met.
    - Otherwise: respond with "inventory item below 50% of capacity but not critical, check again later" and stop calling tools.
 4. When you do request an invoice: always call create_notification after, describing the action.
-5. Don't crate a notification if no action is needed. Just respond with the appropriate message and end.`
+5. Don't crate a notification if no action is needed. Just respond with the appropriate message and end.
+
+constraints:
+- make sure to call send_invoice request if the item is predicted to reach critical levels within the supplier lead time + 2 days, and the minimum bulk quantity can be ordered to replenish stock.
+- inventory is critical if it's predicted to reach the critical order level within the supplier lead time + 2 days even if the inventory quantity is not less than critical order level yet. This is to account for supplier lead times and ensure we have stock before hitting critical levels.`
         ),
         new HumanMessage("Check the inventory item now and follow the rules."),
       ]

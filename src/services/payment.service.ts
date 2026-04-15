@@ -113,8 +113,6 @@ async function sendUSDT(
 
   const sessionKeyPrivateKey = decryptKey(wallet!.encrypted_session_key) as Hex;
 
-  console.log("Decrypted session private key:", sessionKeyPrivateKey);
-
   // Use ZeroDev hosted endpoints
   const bundlerUrl = zerodevRpc;
   const paymasterUrl = zerodevRpc;
