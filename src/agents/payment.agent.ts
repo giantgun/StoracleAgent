@@ -59,7 +59,7 @@ export async function handlePaymentTask(task: AgentTask) {
     );
 
     const model = new ChatOpenAI({
-      modelName: "openrouter/elephant-alpha",
+      modelName: "nvidia/nemotron-3-super-120b-a12b:free",
       apiKey: process.env.OPENROUTER_API_KEY,
       configuration: {
         baseURL: "https://openrouter.ai/api/v1",

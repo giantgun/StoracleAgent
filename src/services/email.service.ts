@@ -60,7 +60,7 @@ export async function readInvoiceService(attachmentId: string): Promise<{
   console.log("Extracted text from invoice:", JSON.stringify(extractedText, null, 2));
 
   // const model = new ChatOpenRouter({
-  //   model: "openrouter/elephant-alpha",
+  //   model: "nvidia/nemotron-3-super-120b-a12b:free",
   //   apiKey: process.env.OPENROUTER_API_KEY,
   // });
 
@@ -133,7 +133,7 @@ export async function sendInvoiceRequestService(
   // });
 
   const model = new ChatOpenAI({
-    modelName: "openrouter/elephant-alpha",
+    modelName: "nvidia/nemotron-3-super-120b-a12b:free",
     apiKey: process.env.OPENROUTER_API_KEY,
     configuration: {
       baseURL: "https://openrouter.ai/api/v1",
@@ -213,7 +213,7 @@ export async function sendInvoicePaidService(
   // });
 
   const model = new ChatOpenAI({
-    modelName: "openrouter/elephant-alpha",
+    modelName: "nvidia/nemotron-3-super-120b-a12b:free",
     apiKey: process.env.OPENROUTER_API_KEY,
     configuration: {
       baseURL: "https://openrouter.ai/api/v1",
