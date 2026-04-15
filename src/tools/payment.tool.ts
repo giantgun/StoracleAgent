@@ -7,7 +7,7 @@ export class PaySupplierTool extends StructuredTool {
   description = "Pay a supplier invoice in USDT. Use the supplier address, total amount, inventory item ID, and quantity from the parsed invoice data.";
 
   schema = z.object({
-    supplierAddress: z.string().describe("The USDT wallet address of the supplier (from the invoice)"),
+    supplierAddress: z.string().describe("The USDT wallet address of the supplier (from the invoice) must be a valid Ethereum address of format 0x followed by 40 hexadecimal characters"),
     amount: z.number().describe("The total amount to pay in USDT (from the invoice)"),
     inventoryItemId: z.string().describe("The ID of the matching inventory item"),
     quantity: z.number().describe("The quantity of items being ordered (from the invoice)"),
