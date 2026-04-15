@@ -32,7 +32,7 @@ server.listen(port, async () => {
   console.log("Task worker started alongside server");
 
   // Register AgentMail webhook via ngrok tunnel
-  if (process.env.NGROK_AUTHTOKEN) {
+  if (process.env.NGROK_AUTHTOKEN && process.env.NODE_ENV !== "production") {
      await ngrok.authtoken(process.env.NGROK_AUTHTOKEN)
     try {
       const listener = await ngrok.connect({
